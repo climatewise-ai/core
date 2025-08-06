@@ -1,0 +1,52 @@
+
+# Files
+.classpath
+.externalToolBuilders
+.gradle
+.project
+.pydevproject
+.settings
+.sonar
+.nvmrc
+*~
+*.ipr
+*.iml
+*.iws
+*.swp
+*.DS_Store
+*.snap.debug
+dependency-reduced-pom.xml
+interactive_otp_main.json
+/otp
+/otp-ui
+Dockerfile
+.java-version
+o_o_standalone_config_IncludeFileDirectiveTest_part.json
+
+# Directories
+.idea/
+.run/
+.venv/
+_site/
+build/
+!/application/src/build/
+dist/
+doc/user/_build/
+gen-java/
+gen-javabean/
+gen-py/
+node_modules/
+target/
+/graphs
+
+# for local dev only
+/src/test/resources/speedtest/travelSearch-results-*.csv
+src/ext/resources/reportapi/report.csv
+
+streetGraph.obj
+graph.obj
+# IntelliJ creates these pid files when you attach the debugger to tests
+.attach_pid*
+
+# draw.io backup files
+*.svg.bkp

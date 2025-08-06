@@ -1,0 +1,67 @@
+{
+  "transitServiceStart": "2024-09-01",
+  "transitServiceEnd": "2024-12-31",
+  "transitModelTimeZone": "America/Los_Angeles",
+  "transitFeeds": [
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/catholiccommunity-wa-us-king--flex-v2.zip",
+      "feedId": "ccsww-kc"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/community-transit.gtfs.zip",
+      "feedId": "commtrans"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/communitytransit-wa-us--flex-v2.zip",
+      "feedId": "commtrans-flex"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/homage-wa-us-darrington--flex-v2.zip",
+      "feedId": "homage"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/hopelink-wa-us--flex-v2.zip",
+      "feedId": "hopelink"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/kcm.gtfs.zip",
+      "feedId": "kcm"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/kitsap.gtfs.zip",
+      "feedId": "kitsap"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/monorail.gtfs.zip",
+      "feedId": "monorail"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/pierce-transit.gtfs.zip",
+      "feedId": "pierce"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/soundgenerations-wa-us-hyde--flex-v2.zip",
+      "feedId": "hyde"
+    },
+    {
+      "type": "gtfs",
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/soundgenerations-wa-us-volunteer--flex-v2.zip",
+      "feedId": "volunteer"
+    }
+  ],
+  "osm": [
+    {
+      "source": "https://otp-performance.leonard.io/data/washington-state-new/north-east-washington-2024-17-10.osm.pbf"
+    }
+  ]
+}

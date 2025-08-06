@@ -1,0 +1,200 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "prConcurrentLimit": 3,
+  "labels": [
+    "skip changelog"
+  ],
+  "rebaseWhen": "conflicted",
+  "enabledManagers": [
+    "npm",
+    "maven",
+    "pip_requirements"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "jakarta.xml.bind:jakarta.xml.bind-api",
+        // need code changes, don't want to upgrade
+        "io.github.origin-energy:java-snapshot-testing-junit5",
+        "commons-cli:commons-cli",
+        "org.processing:core",
+        "edu.ucar:netcdf4"
+      ],
+      "enabled": false
+    },
+    {
+      "matchFiles": ["client/package.json"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "Debug UI dependencies (non-major)",
+      "schedule": ["after 6pm on the 17th day of the month"],
+      "reviewers": ["testower"]
+    },
+    {
+      "matchFiles": ["client/package.json"],
+      "matchUpdateTypes": ["major"],
+      "reviewers": ["testower"]
+    },
+    // some dependencies that we auto-merge release very often and even the auto-merges create a lot of
+    // noise, so we slow it down a bit
+    {
+      "description": "Automerge test dependencies in a single PR",
+      "groupName": "Test dependencies",
+      "matchPackageNames": [
+        "org.mockito:mockito-core",
+        "com.tngtech.archunit:archunit",
+        "org.apache.maven.plugins:maven-surefire-plugin",
+        "me.fabriciorby:maven-surefire-junit5-tree-reporter",
+        "com.google.truth:truth",
+        "org.jacoco:jacoco-maven-plugin", // coverage plugin
+        "org.apache.commons:commons-compress", // only used by tests
+        "org.junit.jupiter:{/,}**"
+      ],
+      "automerge": true,
+      "schedule": "on the 17th day of the month"
+    },
+    {
+      "matchPackageNames": [
+        "org.mobilitydata:gbfs-java-model"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "schedule": "on the 18th day of the month",
+      "automerge": true
+    },
+    {
+      "description": "Automerge Maven plugins in a single PR",
+      "groupName": "Maven plugins",
+      "matchPackageNames": [
+        "io.github.git-commit-id:git-commit-id-maven-plugin",
+        "org.apache.maven.plugins:maven-gpg-plugin",
+        "org.codehaus.mojo:build-helper-maven-plugin",
+        "org.apache.maven.plugins:maven-source-plugin",
+        "com.hubspot.maven.plugins:prettier-maven-plugin",
+        "com.google.cloud.tools:jib-maven-plugin",
+        "org.apache.maven.plugins:maven-shade-plugin",
+        "org.apache.maven.plugins:maven-compiler-plugin",
+        "org.apache.maven.plugins:maven-jar-plugin",
+        "org.sonatype.plugins:nexus-staging-maven-plugin"
+      ],
+      "schedule": "on the 23rd day of the month",
+      "automerge": true
+    },
+    {
+      // https://github.com/graphql-java-kickstart/renovate-config/blob/main/default.json
+      "description": "GraphQL Java (ignoring snapshot builds)",
+      "matchPackageNames": [
+        "com.graphql-java:{/,}**"
+      ],
+      "allowedVersions": "/^[0-9]+\\.[0-9]+(\\.[0-9]+)?$/"
+    },
+    {
+      // at most monthly updates (as they tend to happen frequently)
+      "matchPackageNames": [
+        "org.onebusaway:onebusaway-gtfs",
+        "com.google.cloud:libraries-bom",
+        "com.google.guava:guava",
+        "io.micrometer:micrometer-registry-prometheus",
+        "io.micrometer:micrometer-registry-influx",
+        "com.google.protobuf:protobuf-java"
+      ],
+      "matchUpdateTypes": ["major", "minor"],
+      "schedule": "on the 7th through 8th day of the month"
+    },
+    {
+      "groupName": "GTFS API code generation",
+      "matchFiles": ["application/src/main/java/org/opentripplanner/apis/gtfs/generated/package.json"],
+      "reviewers": ["optionsome", "leonardehrenfried"],
+      "schedule": "on the 11th through 12th day of the month"
+    },
+    {
+      "description": "in order to keep review burden low, don't update these quite so frequently",
+      "matchPackageNames": [
+        "org.apache.lucene:{/,}**",
+      ],
+      "extends": [
+        "schedule:quarterly"
+      ]
+    },
+    {
+      "groupName": "mkdocs",
+      "description": "automerge mkdocs-material every quarter",
+      "matchPackageNames": [
+        "mkdocs",
+        "mkdocs-material"
+      ],
+      "extends": [
+        "schedule:quarterly"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Automerge logging dependencies in a single PR",
+      "groupName": "logging dependencies",
+      "matchPackageNames": [
+        "org.slf4j:{/,}**",
+        "ch.qos.logback:{/,}**",
+        "net.logstash.logback:logstash-logback-encoder"
+      ],
+      "automerge": true,
+      "schedule": "on the 4th day of the month"
+    },
+    {
+      "groupName": "highly trusted dependencies (patch)",
+      "matchUpdateTypes": ["patch"],
+      "schedule": ["on the 13th and 27th day of the month"],
+      "matchPackageNames": [
+        "org.onebusaway:onebusaway-gtfs",
+        "org.glassfish.jersey.{/,}**",
+        "com.google.guava:guava",
+        "com.google.cloud:libraries-bom",
+        "com.google.protobuf:protobuf-java",
+        "com.google.dagger:{/,}**",
+        "io.micrometer:micrometer-registry-prometheus",
+        "io.micrometer:micrometer-registry-influx",
+        "com.fasterxml.jackson.core:{/,}**",
+        "com.fasterxml.jackson.datatype:{/,}**",
+        "com.azure:{/,}**"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "give some projects time to publish a changelog before opening the PR",
+      "matchPackageNames": [
+        "com.google.dagger:{/,}**",
+        "org.apache.httpcomponents.client5:httpclient5"
+      ],
+      "matchUpdateTypes": ["major", "minor"],
+      "minimumReleaseAge": "1 week",
+      "schedule": "on the 13th through 14th day of the month"
+    },
+    {
+      "groupName": "Jackson non-patch",
+      "matchPackageNames": [
+        "com.fasterxml.jackson:{/,}**",
+        "com.fasterxml.jackson.datatype::{/,}**",
+      ],
+      "matchUpdateTypes": ["major", "minor"],
+      "minimumReleaseAge": "1 week"
+    },
+    {
+      "description": "Geotools takes a while to publish a changelog and since it pulls in JTS it can change the serialization of the graph",
+      "matchPackageNames": [
+        "org.geotools:{/,}**"
+      ],
+      "minimumReleaseAge": "1 week",
+      "labels": ["skip changelog", "bump serialization id"]
+    },
+    {
+      "groupName": "Azure dependencies",
+      "matchPackageNames": [
+        "com.azure:{/,}**"
+      ],
+      "matchUpdateTypes": ["major", "minor"],
+      "schedule": "on the 14th day of the month",
+      "reviewers": ["habrahamsson-skanetrafiken", "svedbod"]
+    }
+  ],
+  "timezone": "Europe/Berlin"
+}

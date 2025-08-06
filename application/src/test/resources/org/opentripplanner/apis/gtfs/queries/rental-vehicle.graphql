@@ -1,0 +1,28 @@
+{
+  rentalVehicle(id: "Network-1:free-floating-bicycle") {
+    vehicleId
+    name
+    allowPickupNow
+    lon
+    lat
+    rentalUris {
+      android
+      ios
+      web
+    }
+    operative
+    vehicleType {
+      formFactor
+      propulsionType
+    }
+    rentalNetwork {
+      networkId
+      url
+    }
+    fuel {
+      percent
+      range
+    }
+    availableUntil
+  }
+}

@@ -1,0 +1,13 @@
+<!-- This file provides credentials and other details to the Maven plugins that deploy our artifacts.
+     These are provided with Github repo secrets (and secrets.GITHUB_TOKEN is provided automatically).
+     Those secrets are copied to environment variables by the CI Action. -->
+<settings>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>NONE</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+</settings>
+

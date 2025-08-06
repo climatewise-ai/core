@@ -1,0 +1,131 @@
+# This file configures the generation of static documentation by MkDocs
+# based on Markdown source files in the 'docs' directory of the OTP repo.
+# This static documentation is built and served by Readthedocs
+# at opentripplanner.readthedocs.org
+
+site_name: OpenTripPlanner 2
+site_url: https://docs.opentripplanner.org
+repo_url: https://github.com/opentripplanner/OpenTripPlanner
+docs_dir: doc/user
+site_dir: target/mkdocs
+strict: true
+
+plugins:
+    - "no-sitemap"
+    - search
+
+theme:
+    name: material
+    features:
+        - toc.integrate
+        - content.code.copy
+        - search.suggest
+        - search.highlight
+    palette:
+        primary: blue
+        accent: blue
+        scheme: default
+
+
+extra:
+    version:
+        provider: mike
+
+markdown_extensions:
+    - pymdownx.highlight:
+          anchor_linenums: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+    - admonition
+
+# MkDocs will automatically discover pages if you don't list them here.
+# In that case subdirectories can be used to organize pages.
+# The list below organizes them into categories and controls the order.
+
+nav:
+- Home: 'index.md'
+- About:
+    - Product Overview: 'Product-Overview.md'
+    - Governance: 'Governance.md'
+    - History: 'History.md'
+    - Presentations: 'Presentations.md'
+    - Roadmap: 'Roadmap.md'
+    - Deployments: 'Deployments.md'
+    - Changelog: 'Changelog.md'
+    - Visual Identity: 'Visual-Identity.md'
+- 'Usage':
+    - Basic Tutorial: 'Basic-Tutorial.md'
+    - Netex and SIRI Tutorial: 'Netex-Tutorial.md'
+    - Getting OTP: 'Getting-OTP.md'
+    - Data Sources: 'Data-Sources.md'
+    - Container Image: 'Container-Image.md'
+    - System Requirements and Suggestions: 'System-Requirements.md'
+    - Preparing OSM Data: 'Preparing-OSM.md'
+    - Troubleshooting: 'Troubleshooting-Routing.md'
+    - Comparing OTP2 to OTP1: 'Version-Comparison.md'
+    - Frontends: 'Frontends.md'
+- APIs:
+    - Introduction: 'apis/Apis.md'
+    - GraphQL Tutorial: 'apis/GraphQL-Tutorial.md'
+    - GTFS GraphQL API: 'apis/GTFS-GraphQL-API.md'
+    - Transmodel (NeTEx) GraphQL API: 'apis/TransmodelApi.md'
+- Configuration:
+    - Introduction: 'Configuration.md'
+    - Build: 'BuildConfiguration.md'
+    - OSM Tag Mapping:
+        - Default: 'osm/OsmTag.md'
+        - Finland: 'osm/Finland.md'
+        - Germany: 'osm/Germany.md'
+        - Norway: 'osm/Norway.md'
+        - UK: 'osm/UK.md'
+    - Router: 'RouterConfiguration.md'
+    - "Route Request": 'RouteRequest.md'
+    - "Realtime Updaters":
+        - Introduction: 'Realtime-Updaters.md'
+        - "GTFS-RT": 'GTFS-RT-Config.md'
+        - SIRI: 'SIRI-Config.md'
+        - GBFS: 'GBFS-Config.md'
+    - "Debug UI": 'DebugUiConfiguration.md'
+    - "Migrating between versions/builds": 'Migrating-Configuration.md'
+- Features explained:
+    - "Feed ID": 'features-explained/Feed-ID.md'
+    - "Routing modes": 'RoutingModes.md'
+    - "In-station navigation": 'In-Station-Navigation.md'
+    - "Boarding Locations": 'BoardingLocations.md'
+    - "Stop Area Relations": 'StopAreas.md'
+    - "Street Graph Pruning": 'IslandPruning.md'
+    - Accessibility: 'Accessibility.md'
+    - "NeTEx and SIRI compatibility": 'features-explained/Netex-Siri-Compatibility.md'
+    - "Travel Time Analysis": 'Analysis.md'
+    - "Logging": "Logging.md"
+- Development:
+    - "Developers' Guide": 'Developers-Guide.md'
+    - Bibliography: 'Bibliography.md'
+    - Sandbox Development: 'SandboxExtension.md'
+    - Release Checklist: 'ReleaseChecklist.md'
+- Sandbox:
+    - About: 'SandboxExtension.md'
+    - Actuator API: 'sandbox/ActuatorAPI.md'
+    - Debug Raster Tiles: 'sandbox/DebugRasterTiles.md'
+    - Direct Transfer Analyzer: 'sandbox/transferanalyzer.md'
+    - Google Cloud Storage: 'sandbox/GoogleCloudStorage.md'
+    - SIRI Updaters (Google Cloud): 'sandbox/siri/SiriGooglePubSubUpdater.md'
+    - SIRI Updater (Azure): 'sandbox/siri/SiriAzureUpdater.md'
+    - Vehicle Rental Service Directory API support: 'sandbox/VehicleRentalServiceDirectory.md'
+    - Smoove Bike Rental Updator Support: 'sandbox/SmooveBikeRental.md'
+    - Mapbox Vector Tiles API: 'sandbox/MapboxVectorTilesApi.md'
+    - Flex Routing: 'sandbox/Flex.md'
+    - Report API: 'sandbox/ReportApi.md'
+    - Interactive OTP Launcher: 'sandbox/InteractiveOtpMain.md'
+    - Park and Ride API: 'sandbox/ParkAndRideApi.md'
+    - Data Overlay: 'sandbox/DataOverlay.md'
+    - Vehicle Parking Updaters: 'sandbox/VehicleParking.md'
+    - Geocoder API: 'sandbox/GeocoderAPI.md'
+    - IBI Accessibility Score: 'sandbox/IBIAccessibilityScore.md'
+    - Fares: 'sandbox/Fares.md'
+    - Ride Hailing: 'sandbox/RideHailing.md'
+    - Emissions: 'sandbox/Emission.md'
+    - Stop Consolidation: 'sandbox/StopConsolidation.md'
+    - Sørlandsbanen: 'sandbox/Sorlandsbanen.md'
+    - TRIAS API: 'sandbox/TriasApi.md'
