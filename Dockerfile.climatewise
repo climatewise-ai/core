@@ -1,0 +1,74 @@
+# Climatewise Core - Production Docker Image
+FROM openjdk:17-jdk-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    maven \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy source code
+COPY . .
+
+# Build the application with Climatewise optimizations
+RUN mvn clean package -DskipTests \
+    -Dmaven.javadoc.skip=true \
+    -Dcheckstyle.skip=true \
+    -Dspotless.skip=true
+
+# Production stage
+FROM openjdk:17-jre-slim
+
+# Install runtime dependencies for AI/ML operations
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python packages for carbon calculations
+RUN pip3 install \
+    numpy==1.24.3 \
+    pandas==2.0.3 \
+    scikit-learn==1.3.0 \
+    requests==2.31.0
+
+# Create climatewise user
+RUN useradd -r -u 1000 -m -c "Climatewise user" -d /home/climatewise -s /bin/false climatewise
+
+# Set working directory
+WORKDIR /opt/climatewise
+
+# Copy built JAR from builder stage
+COPY --from=builder /app/otp-shaded/target/*.jar ./climatewise-core.jar
+COPY --from=builder /app/climatewise-config.json ./config/
+
+# Create necessary directories
+RUN mkdir -p /var/lib/climatewise/data \
+    /var/lib/climatewise/cache \
+    /var/lib/climatewise/graphs \
+    /var/log/climatewise \
+    && chown -R climatewise:climatewise /var/lib/climatewise /var/log/climatewise /opt/climatewise
+
+# Switch to non-root user
+USER climatewise
+
+# Expose ports
+EXPOSE 8080 8081
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Environment variables
+ENV JAVA_OPTS="-Xmx8g -XX:+UseG1GC -XX:+UseStringDeduplication" \
+    CLIMATEWISE_CONFIG_PATH="/opt/climatewise/config/climatewise-config.json" \
+    CLIMATEWISE_DATA_PATH="/var/lib/climatewise/data" \
+    CLIMATEWISE_LOG_LEVEL="INFO"
+
+# Start command
+CMD ["sh", "-c", "java $JAVA_OPTS -jar climatewise-core.jar --serve --config $CLIMATEWISE_CONFIG_PATH"]
